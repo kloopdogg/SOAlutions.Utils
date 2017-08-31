@@ -20,3 +20,4 @@
 /Source/SOAlutions.Utils.Data/bin
 /Source/SOAlutions.Utils.ServiceModel/bin
 /Source/SOAlutions.Utils.Unity/bin
+*.user
