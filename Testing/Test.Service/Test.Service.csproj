@@ -64,7 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SOAlutions.Utils.Unity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SOAlutions.Utils.Unity.1.0.8\lib\net452\SOAlutions.Utils.Unity.dll</HintPath>
+      <HintPath>..\..\packages\SOAlutions.Utils.Unity.1.0.9\lib\net452\SOAlutions.Utils.Unity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

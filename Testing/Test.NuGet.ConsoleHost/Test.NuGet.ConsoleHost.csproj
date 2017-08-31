@@ -68,12 +68,12 @@
       <HintPath>..\..\packages\SOAlutions.Utils.1.0.0\lib\net452\SOAlutions.Utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SOAlutions.Utils.ServiceModel, Version=1.0.6451.34045, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SOAlutions.Utils.ServiceModel.1.0.0\lib\net452\SOAlutions.Utils.ServiceModel.dll</HintPath>
+    <Reference Include="SOAlutions.Utils.ServiceModel, Version=1.0.6452.15241, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SOAlutions.Utils.ServiceModel.1.0.1\lib\net452\SOAlutions.Utils.ServiceModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SOAlutions.Utils.Unity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SOAlutions.Utils.Unity.1.0.8\lib\net452\SOAlutions.Utils.Unity.dll</HintPath>
+      <HintPath>..\..\packages\SOAlutions.Utils.Unity.1.0.9\lib\net452\SOAlutions.Utils.Unity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -93,7 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
