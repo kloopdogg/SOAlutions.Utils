@@ -12,3 +12,7 @@
 /Testing/Test.Service/obj
 /Testing/Test.NuGet.WebHost/obj
 /Testing/Test.NuGet.ConsoleHost/obj
+/Source/SOAlutions.Utils/obj
+/Source/SOAlutions.Utils.Data/obj
+/Source/SOAlutions.Utils.ServiceModel/obj
+/Source/SOAlutions.Utils.Unity/obj
