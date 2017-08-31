@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Service="Test.Service.TestService" factory="SOAlutions.Utils.ServiceModel.UnityServiceHostFactory" %>
