@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs
+/packages
+/Testing/Test.NuGet.Client/bin
+/Testing/Test.NuGet.Client/obj
+/Testing/Test.Service/bin
+/Testing/Test.NuGet.WebHost/bin
+/Testing/Test.NuGet.ConsoleHost/bin
+/Testing/Test.Service/obj
+/Testing/Test.NuGet.WebHost/obj
+/Testing/Test.NuGet.ConsoleHost/obj
