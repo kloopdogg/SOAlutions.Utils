@@ -48,11 +48,13 @@ namespace SOAlutions.Utils
 
             ConsoleKeyInfo keyInfo;
             do
-            { 
+            {
                 keyInfo = Console.ReadKey(true);
             }
             while (expectedKey != null && keyInfo.Key != expectedKey);
         }
+
+        private static object _ConsoleLock = new object();
 
         public static void WriteHeaderAndTitle(string title)
         {
@@ -78,36 +80,24 @@ namespace SOAlutions.Utils
 
         public static void WriteInfo(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(message);
-            Console.ResetColor();
+            WriteTextBlock(message, false, ConsoleColor.Cyan, ConsoleColor.Black);
         }
 
         public static void WriteInfo(string format, params object[] args)
         {
             List<TextBlock> textBlocks = GetTextBlocks(format, args);
 
-            foreach (var textBlock in textBlocks.OrderBy(tb => tb.DisplayOrder))
-            {
-                if (textBlock.IsVariable)
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                }
-                Console.Write(textBlock.Text);
-                Console.ResetColor();
-            }
-            Console.WriteLine();
+            WriteTextBlocks(textBlocks);
         }
 
         public static void SetWindowSize(int width, int height)
         {
-            Console.SetWindowSize(
-                Math.Min(width, Console.LargestWindowWidth),
-                Math.Min(height, Console.LargestWindowHeight));
+            int setWidth = Math.Min(width, Console.LargestWindowWidth);
+            int setHeight = Math.Min(height, Console.LargestWindowHeight);
+
+            System.Console.SetWindowSize(setWidth, setHeight);
+            System.Console.BufferWidth = setWidth;
+
             MakeWindowSizeStatic();
         }
 
@@ -200,44 +190,72 @@ namespace SOAlutions.Utils
         private static void WriteTextBlock(string text, bool showPadding, ConsoleColor foreColor, ConsoleColor backColor)
         {
             int padding = 2;
-            int width = Console.WindowWidth;
+            int width = System.Console.WindowWidth;
             int halfWidth = width / 2;
             int minWidth = Math.Max(text.Length + (padding * 2), halfWidth);
 
             WriteBlockLines(text, showPadding, foreColor, backColor, minWidth);
         }
 
+        private static void WriteTextBlocks(List<TextBlock> textBlocks)
+        {
+            lock (_ConsoleLock)
+            {
+                foreach (var textBlock in textBlocks.OrderBy(tb => tb.DisplayOrder))
+                {
+                    if (textBlock.IsVariable)
+                    {
+                        System.Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
+                    else
+                    {
+                        System.Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    }
+                    System.Console.Write(textBlock.Text);
+                    System.Console.ResetColor();
+                }
+                System.Console.WriteLine();
+            }
+        }
+
         private static void WriteBlockLines(string text, bool showPadding, ConsoleColor foreColor, ConsoleColor backColor, int width = 0)
         {
-            bool isFullWidth = false;
-            if (width == 0 || width >= Console.WindowWidth)
+            lock (_ConsoleLock)
             {
-                width = Console.WindowWidth;
-                isFullWidth = true;
-            }
-            int halfWidth = width / 2;
+                bool isFullWidth = false;
+                if (width == 0 || width >= System.Console.WindowWidth)
+                {
+                    width = System.Console.WindowWidth;
+                    isFullWidth = System.Console.WindowWidth == System.Console.BufferWidth;
+                }
+                int halfWidth = width / 2;
 
-            if (!isFullWidth)
-            {
-                System.Console.WriteLine();
-                if (showPadding)
+                if (!isFullWidth)
                 {
                     System.Console.WriteLine();
+                    if (showPadding)
+                    {
+                        System.Console.WriteLine();
+                    }
                 }
+                System.Console.ForegroundColor = foreColor;
+                System.Console.BackgroundColor = backColor;
+                if (showPadding)
+                {
+                    WriteLine(String.Empty.PadLeft(width, ' '), isFullWidth);
+                }
+                string[] textLines = text.Replace("\r\n", "\n").Split('\n');
+                foreach (var textLine in textLines)
+                {
+                    WriteLine(textLine.PadLeft((halfWidth + (textLine.Length / 2)), ' ').PadRight(width, ' ').Substring(0, width), isFullWidth);
+                }
+                if (showPadding)
+                {
+                    WriteLine(String.Empty.PadLeft(width, ' '), isFullWidth);
+                }
+                System.Console.ResetColor();
+                System.Console.WriteLine();
             }
-            System.Console.ForegroundColor = foreColor;
-            System.Console.BackgroundColor = backColor;
-            if (showPadding)
-            {
-                WriteLine(String.Empty.PadLeft(width, ' '), isFullWidth);
-            }
-            WriteLine(text.PadLeft((halfWidth + (text.Length / 2)), ' ').PadRight(width, ' '), isFullWidth);
-            if (showPadding)
-            {
-                WriteLine(String.Empty.PadLeft(width, ' '), isFullWidth);
-            }
-            System.Console.ResetColor();
-            System.Console.WriteLine();
         }
 
         private static void WriteLine(string format, params object[] args)
