@@ -72,10 +72,6 @@
       <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SOAlutions.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SOAlutions.Utils.1.0.0\lib\net452\SOAlutions.Utils.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SOAlutions.Utils.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SOAlutions.Utils.Data.1.0.0\lib\net452\SOAlutions.Utils.Data.dll</HintPath>
       <Private>True</Private>
@@ -104,6 +100,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestManager.cs" />
+    <Compile Include="TestModels.cs" />
     <Compile Include="TestServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +112,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\SOAlutions.Utils\SOAlutions.Utils.csproj">
+      <Project>{9c7e9b5c-1900-4f67-8eac-6d4f1f7f45b2}</Project>
+      <Name>SOAlutions.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Service\Test.Service.csproj">
       <Project>{4419AE69-90FE-4D68-8942-D4561A94B516}</Project>
       <Name>Test.Service</Name>
