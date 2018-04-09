@@ -50,12 +50,44 @@ namespace Test.Client
                 ConsoleHelper.WriteInfo(" - {0} {1}", item.ID, item.Value);
             }
 
+
+            ConsoleHelper.WriteTestStep("Testing DeepCopy");
+            RunDeepCopyTests();
+
             ConsoleHelper.WriteTestSection("Testing ServiceModelExtensions");
 
             TestManager testManager = new TestManager();
             testManager.RunTests();
             
             ConsoleHelper.WaitForAnyKey();
+        }
+
+        private static void RunDeepCopyTests()
+        {
+            var test = new TestObject
+            {
+                TestEnum = TestEnum.First,
+                TestInt = 5150,
+                TestString = "Hello, World!",
+            };
+            var copiedTest = test.Copy();
+
+            if (copiedTest.Equals(test))
+            {
+                ConsoleHelper.WriteError("DeepCopy failed");
+            }
+            else
+            {
+                copiedTest.TestEnum = TestEnum.Second;
+                if (copiedTest.Equals(test))
+                {
+                    ConsoleHelper.WriteError("Copied object isolation failed");
+                }
+                else
+                {
+                    ConsoleHelper.WriteInfo("DeepCopy: {0}", "Success");
+                }
+            }
         }
     }
 }
